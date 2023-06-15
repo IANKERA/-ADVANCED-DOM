@@ -48,3 +48,10 @@ document
 
 message.style.backgroundColor = '#37383d';
 message.style.width = '120%';
+
+const btnScrollTO = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTO.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
