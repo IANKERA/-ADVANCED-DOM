@@ -85,26 +85,18 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-nav.addEventListener('mouseover', function (e) {
-  if (e.target.classList.contains('nav__link')) {
-    const link = e.target;
-    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
-    const logo = link.closest('nav').querySelector('img');
-    siblings.forEach(el => {
-      if (el !== link) el.style.opacity = 0.5;
-    });
-    logo.style.opacity = 0.5;
-  }
+const navH = nav.getBoundingClientRect().height;
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  console.log(entries);
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
 });
 
-nav.addEventListener('mouseout', function (e) {
-  if (e.target.classList.contains('nav__link')) {
-    const link = e.target;
-    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
-    const logo = link.closest('nav').querySelector('img');
-    siblings.forEach(el => {
-      if (el !== link) el.style.opacity = 1;
-    });
-    logo.style.opacity = 1;
-  }
-});
+headObserver.observe(header);
